@@ -222,7 +222,7 @@ function saveAll() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reports)); setSaveInd('saved'); }
-    catch(e) { toast('保存失敗（容量不足）'); }
+    catch(e) { toast('保存失敗：不要な報告書を削除してください'); }
   }, 800);
   setSaveInd('saving');
 }
@@ -393,14 +393,34 @@ document.getElementById('delPhotoBtn').onclick=()=>{
   if(pair){pair[activeSlot.side]=null;renderPairs();saveCurrent();}
   document.getElementById('photoOverlay').classList.remove('open');
 };
+// 写真圧縮：最大幅1200px・JPEG品質70%に縮小
+function compressImage(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX_W = 1200;
+        let w = img.width, h = img.height;
+        if (w > MAX_W) { h = Math.round(h * MAX_W / w); w = MAX_W; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.70));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function handleFile(file) {
   if(!file||!activeSlot)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
+  compressImage(file).then(compressed => {
     const pair=currentReport().pairs.find(p=>p.id===activeSlot.pairId);
-    if(pair){pair[activeSlot.side]=e.target.result;renderPairs();saveCurrent();}
-  };
-  reader.readAsDataURL(file);
+    if(pair){pair[activeSlot.side]=compressed;renderPairs();saveCurrent();}
+  });
   document.getElementById('fileCamera').value='';
   document.getElementById('fileGallery').value='';
 }
