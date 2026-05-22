@@ -11,50 +11,84 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,'Hiragino Sans','Yu Gothic',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh}
 
-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:0.5px solid #e0e0e0;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
-header h1{font-size:15px;font-weight:600;color:#1a1a1a;display:flex;align-items:center;gap:6px}
-header h1 svg{width:18px;height:18px;stroke:#378ADD}
+/* ヘッダー共通 */
+.top-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:0.5px solid #e0e0e0;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.top-header h1{font-size:15px;font-weight:600;color:#1a1a1a;display:flex;align-items:center;gap:6px}
+.top-header h1 svg{width:18px;height:18px;stroke:#378ADD;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.back-btn{display:flex;align-items:center;gap:4px;font-size:14px;color:#378ADD;cursor:pointer;padding:4px 0;background:none;border:none}
+.back-btn svg{width:18px;height:18px;stroke:#378ADD;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
+/* 画面切替 */
+.screen{display:none}
+.screen.active{display:block}
+
+/* ===== 一覧画面 ===== */
+#listScreen main{padding:12px;max-width:480px;margin:0 auto}
+.new-btn{width:100%;padding:14px;border:1.5px dashed #378ADD;border-radius:12px;background:#f0f7ff;color:#378ADD;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
+.new-btn svg{width:18px;height:18px;stroke:#378ADD;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.new-btn:active{background:#dbeeff}
+
+.report-list{display:flex;flex-direction:column;gap:8px}
+.report-item{background:#fff;border-radius:12px;border:0.5px solid #e0e0e0;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.report-item:active{background:#f8f8f8}
+.report-icon{width:40px;height:40px;border-radius:10px;background:#f0f7ff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.report-icon svg{width:20px;height:20px;stroke:#378ADD;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.report-info{flex:1;min-width:0}
+.report-title-text{font-size:14px;font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.report-meta{font-size:11px;color:#aaa;margin-top:2px}
+.report-stats{font-size:11px;color:#888;margin-top:3px}
+.stat-badge{display:inline-block;padding:1px 6px;border-radius:4px;margin-right:4px}
+.stat-b{background:#dbeeff;color:#185FA5}
+.stat-a{background:#d4f0e4;color:#0F6E56}
+.report-arrow{color:#ccc;flex-shrink:0}
+.report-arrow svg{width:16px;height:16px;stroke:#ccc;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.report-del-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:#ddd;flex-shrink:0}
+.report-del-btn:active{background:#fff0f0;color:#e05}
+.report-del-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.empty-state{text-align:center;padding:48px 24px;color:#bbb}
+.empty-state svg{width:48px;height:48px;stroke:#ddd;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
+.empty-state p{font-size:14px}
+
+/* ===== 編集画面 ===== */
+#editScreen main{padding:12px;max-width:480px;margin:0 auto}
+.edit-header-right{display:flex;align-items:center;gap:8px}
+.save-indicator{font-size:10px;color:#aaa;display:flex;align-items:center;gap:3px;white-space:nowrap}
+.save-indicator.saved{color:#1D9E75}
+.save-indicator svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .layout-sel{font-size:12px;padding:4px 8px;border:0.5px solid #ccc;border-radius:8px;background:#fff;color:#333;appearance:none;-webkit-appearance:none;padding-right:20px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center}
-
-main{padding:12px;max-width:480px;margin:0 auto}
-
 .report-title-wrap{background:#fff;border-radius:10px;border:0.5px solid #e0e0e0;padding:10px 12px;margin-bottom:10px}
-.report-title-wrap input{width:100%;font-size:14px;border:none;outline:none;color:#1a1a1a;background:transparent}
-.report-title-wrap input::placeholder{color:#aaa}
-
+.report-title-wrap input{width:100%;font-size:14px;border:none;outline:none;color:#1a1a1a;background:transparent;font-weight:600}
+.report-title-wrap input::placeholder{color:#aaa;font-weight:400}
 .pair-card{background:#fff;border-radius:10px;border:0.5px solid #e0e0e0;margin-bottom:10px;overflow:hidden}
 .pair-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#fafafa;border-bottom:0.5px solid #e8e8e8}
 .pair-num{font-size:12px;font-weight:600;color:#555}
 .pair-del{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;color:#bbb}
-.pair-del:active{background:#f0f0f0;color:#e05}
-
+.pair-del svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pair-del:active{background:#fff0f0;color:#e05}
 .photos-row{display:grid;grid-template-columns:1fr 1fr}
 .photo-slot{position:relative;aspect-ratio:4/3;cursor:pointer;overflow:hidden;background:#f8f8f8;display:flex;align-items:center;justify-content:center}
 .photo-slot:first-child{border-right:0.5px solid #e8e8e8}
 .photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-empty{display:flex;flex-direction:column;align-items:center;gap:5px}
-.photo-empty svg{width:24px;height:24px;stroke:#ccc;stroke-width:1.5}
+.photo-empty svg{width:24px;height:24px;stroke:#ccc;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .photo-empty span{font-size:10px;color:#ccc}
 .photo-badge{position:absolute;bottom:6px;left:6px;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.03em}
 .badge-b{background:#dbeeff;color:#185FA5}
 .badge-a{background:#d4f0e4;color:#0F6E56}
 .photo-check{position:absolute;top:5px;right:5px;width:18px;height:18px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.photo-check svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5}
-
+.photo-check svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .caption-wrap{padding:7px 12px;border-top:0.5px solid #e8e8e8}
 .caption-wrap input{width:100%;font-size:12px;border:none;outline:none;color:#333;background:transparent}
 .caption-wrap input::placeholder{color:#bbb}
-
-.add-btn{width:100%;padding:12px;border:1px dashed #d0d0d0;border-radius:10px;background:transparent;color:#888;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px}
-.add-btn svg{width:16px;height:16px;stroke:#aaa;stroke-width:2}
-.add-btn:active{background:#f5f5f5}
-
+.add-pair-btn{width:100%;padding:12px;border:1px dashed #d0d0d0;border-radius:10px;background:transparent;color:#888;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px}
+.add-pair-btn svg{width:16px;height:16px;stroke:#aaa;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.add-pair-btn:active{background:#f5f5f5}
 .action-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
 .act-btn{padding:13px 8px;border:0.5px solid #d8d8d8;border-radius:10px;background:#fff;color:#333;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
-.act-btn svg{width:17px;height:17px;stroke-width:1.8}
-.act-btn.pdf svg{stroke:#378ADD}
-.act-btn.xls svg{stroke:#1D9E75}
+.act-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.act-btn.pdf{color:#378ADD;border-color:#b8d8f8}
+.act-btn.xls{color:#1D9E75;border-color:#b0e0cc}
 .act-btn:active{transform:scale(0.97);background:#f5f5f5}
 
 /* モーダル */
@@ -64,7 +98,7 @@ main{padding:12px;max-width:480px;margin:0 auto}
 .overlay.open .sheet{transform:translateY(0)}
 .sheet-title{font-size:13px;font-weight:600;color:#888;text-align:center;margin-bottom:14px}
 .sheet-btn{width:100%;padding:15px;border:none;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.sheet-btn svg{width:22px;height:22px;stroke-width:1.8;flex-shrink:0}
+.sheet-btn svg{width:22px;height:22px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .sheet-btn.cam{background:#dbeeff;color:#185FA5}
 .sheet-btn.cam svg{stroke:#185FA5}
 .sheet-btn.gal{background:#d4f0e4;color:#0F6E56}
@@ -73,67 +107,105 @@ main{padding:12px;max-width:480px;margin:0 auto}
 .sheet-btn.cancel svg{stroke:#aaa}
 .sheet-btn:active{opacity:0.75}
 
+/* 新規作成モーダル */
+.new-report-sheet{background:#fff;border-radius:18px 18px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom));width:100%;max-width:480px;transform:translateY(20px);transition:transform 0.2s}
+.overlay.open .new-report-sheet{transform:translateY(0)}
+.new-report-sheet h3{font-size:15px;font-weight:600;margin-bottom:16px;color:#1a1a1a}
+.new-report-sheet input{width:100%;font-size:15px;padding:12px;border:0.5px solid #e0e0e0;border-radius:10px;outline:none;color:#1a1a1a;margin-bottom:12px}
+.new-report-sheet input:focus{border-color:#378ADD}
+.create-btn{width:100%;padding:14px;border:none;border-radius:12px;background:#378ADD;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:8px}
+.create-btn:active{opacity:0.85}
+.sheet-cancel{width:100%;padding:12px;border:none;border-radius:12px;background:#f0f0f0;color:#888;font-size:14px;cursor:pointer}
+
 .toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#222;color:#fff;font-size:13px;padding:9px 18px;border-radius:20px;opacity:0;transition:opacity 0.25s;pointer-events:none;z-index:200;white-space:nowrap}
 .toast.show{opacity:1}
-
 input[type=file]{display:none}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-      <circle cx="12" cy="13" r="4"/>
-    </svg>
-    現場写真報告書
-  </h1>
-  <select class="layout-sel" id="layoutSel">
-    <option value="3">3件/ページ</option>
-    <option value="2">2件/ページ</option>
-    <option value="1">1件/ページ</option>
-  </select>
-</header>
-
-<main>
-  <div class="report-title-wrap">
-    <input type="text" id="reportTitle" placeholder="報告書タイトル（例：3階外壁 指摘是正記録）">
+<!-- ===== 一覧画面 ===== -->
+<div id="listScreen" class="screen active">
+  <div class="top-header">
+    <h1>
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      現場写真報告書
+    </h1>
   </div>
-
-  <div id="pairsContainer"></div>
-
-  <button class="add-btn" id="addBtn">
-    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    指摘件を追加
-  </button>
-
-  <div class="action-row">
-    <button class="act-btn pdf" id="pdfBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      PDF保存
+  <main>
+    <button class="new-btn" id="newReportBtn">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      新しい報告書を作成
     </button>
-    <button class="act-btn xls" id="xlsBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
-      CSV出力
+    <div class="report-list" id="reportList"></div>
+  </main>
+</div>
+
+<!-- ===== 編集画面 ===== -->
+<div id="editScreen" class="screen">
+  <div class="top-header">
+    <button class="back-btn" id="backBtn">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      一覧
     </button>
+    <div class="edit-header-right">
+      <span class="save-indicator saved" id="saveIndicator">
+        <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        保存済
+      </span>
+      <select class="layout-sel" id="layoutSel">
+        <option value="3">3件/ページ</option>
+        <option value="2">2件/ページ</option>
+        <option value="1">1件/ページ</option>
+      </select>
+    </div>
   </div>
-</main>
+  <main>
+    <div class="report-title-wrap">
+      <input type="text" id="reportTitle" placeholder="報告書タイトル">
+    </div>
+    <div id="pairsContainer"></div>
+    <button class="add-pair-btn" id="addPairBtn">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      指摘件を追加
+    </button>
+    <div class="action-row">
+      <button class="act-btn pdf" id="pdfBtn">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF保存
+      </button>
+      <button class="act-btn xls" id="xlsBtn">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+        CSV出力
+      </button>
+    </div>
+  </main>
+</div>
+
+<!-- 新規作成シート -->
+<div class="overlay" id="newOverlay">
+  <div class="new-report-sheet">
+    <h3>新しい報告書</h3>
+    <input type="text" id="newTitleInput" placeholder="タイトル（例：5/2 配筋検査）" maxlength="40">
+    <button class="create-btn" id="createBtn">作成</button>
+    <button class="sheet-cancel" id="newCancelBtn">キャンセル</button>
+  </div>
+</div>
 
 <!-- 写真選択シート -->
-<div class="overlay" id="overlay">
+<div class="overlay" id="photoOverlay">
   <div class="sheet">
     <div class="sheet-title" id="sheetTitle">写真を追加</div>
     <button class="sheet-btn cam" id="camBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
       カメラで撮影
     </button>
     <button class="sheet-btn gal" id="galBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       ライブラリから選択
     </button>
-    <button class="sheet-btn cancel" id="cancelBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <button class="sheet-btn cancel" id="photoCancelBtn">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       キャンセル
     </button>
   </div>
@@ -144,12 +216,15 @@ input[type=file]{display:none}
 <div class="toast" id="toast"></div>
 
 <script>
-let pairs = [];
-let nextId = 1;
+const STORAGE_KEY = 'genba_reports_v1';
+let reports = [];      // [{id, title, createdAt, layout, pairs, nextPairId}]
+let currentId = null;  // 編集中の報告書ID
 let activeSlot = null;
+let saveTimer = null;
 
-const checkSVG = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+const checkSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
+// ===== ユーティリティ =====
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -157,146 +232,286 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+// ===== ストレージ =====
+function saveAll() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+      setSaveIndicator('saved');
+    } catch(e) {
+      toast('保存失敗（容量不足の可能性）');
+    }
+  }, 800);
+  setSaveIndicator('saving');
+}
+
+function loadAll() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) reports = JSON.parse(raw);
+  } catch(e) { reports = []; }
+}
+
+function setSaveIndicator(status) {
+  const el = document.getElementById('saveIndicator');
+  if (status === 'saving') {
+    el.classList.remove('saved');
+    el.lastChild.textContent = '保存中…';
+  } else {
+    el.classList.add('saved');
+    el.lastChild.textContent = '保存済';
+  }
+}
+
+// ===== 画面切替 =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== 一覧画面 =====
+function renderList() {
+  const list = document.getElementById('reportList');
+  if (reports.length === 0) {
+    list.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <p>報告書がありません<br>「新しい報告書を作成」から始めてください</p>
+    </div>`;
+    return;
+  }
+  list.innerHTML = '';
+  // 新しい順
+  [...reports].reverse().forEach(r => {
+    const beforeCount = r.pairs.filter(p => p.before).length;
+    const afterCount = r.pairs.filter(p => p.after).length;
+    const el = document.createElement('div');
+    el.className = 'report-item';
+    el.innerHTML = `
+      <div class="report-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <div class="report-info">
+        <div class="report-title-text">${r.title || '（タイトルなし）'}</div>
+        <div class="report-meta">更新：${formatDate(r.updatedAt || r.createdAt)}</div>
+        <div class="report-stats">
+          <span class="stat-badge stat-b">指摘 ${beforeCount}件</span>
+          <span class="stat-badge stat-a">是正 ${afterCount}件</span>
+        </div>
+      </div>
+      <div class="report-del-btn" onclick="deleteReport(event,'${r.id}')">
+        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      </div>
+      <div class="report-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>`;
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('.report-del-btn')) return;
+      openReport(r.id);
+    });
+    list.appendChild(el);
+  });
+}
+
+function deleteReport(e, id) {
+  e.stopPropagation();
+  const r = reports.find(r => r.id === id);
+  if (!confirm(`「${r.title || '（タイトルなし）'}」を削除しますか？`)) return;
+  reports = reports.filter(r => r.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+  renderList();
+}
+
+// 新規作成
+document.getElementById('newReportBtn').onclick = () => {
+  document.getElementById('newTitleInput').value = '';
+  document.getElementById('newOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('newTitleInput').focus(), 300);
+};
+document.getElementById('newCancelBtn').onclick = () => document.getElementById('newOverlay').classList.remove('open');
+document.getElementById('newOverlay').onclick = e => { if (e.target === document.getElementById('newOverlay')) document.getElementById('newOverlay').classList.remove('open'); };
+
+document.getElementById('createBtn').onclick = () => {
+  const title = document.getElementById('newTitleInput').value.trim();
+  if (!title) { document.getElementById('newTitleInput').focus(); return; }
+  const now = new Date().toISOString();
+  const report = {
+    id: uid(),
+    title,
+    createdAt: now,
+    updatedAt: now,
+    layout: '3',
+    nextPairId: 4,
+    pairs: [
+      { id: 1, before: null, after: null, caption: '' },
+      { id: 2, before: null, after: null, caption: '' },
+      { id: 3, before: null, after: null, caption: '' }
+    ]
+  };
+  reports.push(report);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+  document.getElementById('newOverlay').classList.remove('open');
+  openReport(report.id);
+};
+
+document.getElementById('newTitleInput').onkeydown = e => {
+  if (e.key === 'Enter') document.getElementById('createBtn').click();
+};
+
+// ===== 編集画面 =====
+function openReport(id) {
+  currentId = id;
+  const r = reports.find(r => r.id === id);
+  document.getElementById('reportTitle').value = r.title || '';
+  document.getElementById('layoutSel').value = r.layout || '3';
+  setSaveIndicator('saved');
+  renderPairs();
+  showScreen('editScreen');
+}
+
+function currentReport() {
+  return reports.find(r => r.id === currentId);
+}
+
+function saveCurrent() {
+  const r = currentReport();
+  if (!r) return;
+  r.title = document.getElementById('reportTitle').value;
+  r.layout = document.getElementById('layoutSel').value;
+  r.updatedAt = new Date().toISOString();
+  saveAll();
+}
+
+document.getElementById('reportTitle').oninput = saveCurrent;
+document.getElementById('layoutSel').onchange = saveCurrent;
+
+document.getElementById('backBtn').onclick = () => {
+  saveCurrent();
+  renderList();
+  showScreen('listScreen');
+};
+
 function addPair() {
-  pairs.push({ id: nextId++, before: null, after: null, caption: '' });
-  render();
+  const r = currentReport();
+  r.pairs.push({ id: r.nextPairId++, before: null, after: null, caption: '' });
+  renderPairs();
+  saveCurrent();
 }
 
 function deletePair(id) {
-  if (pairs.length <= 1) { toast('最低1件必要です'); return; }
-  pairs = pairs.filter(p => p.id !== id);
-  render();
+  const r = currentReport();
+  if (r.pairs.length <= 1) { toast('最低1件必要です'); return; }
+  if (!confirm('この指摘を削除しますか？')) return;
+  r.pairs = r.pairs.filter(p => p.id !== id);
+  renderPairs();
+  saveCurrent();
 }
 
-function render() {
+function renderPairs() {
+  const r = currentReport();
   const c = document.getElementById('pairsContainer');
   c.innerHTML = '';
-  pairs.forEach((pair, idx) => {
+  r.pairs.forEach((pair, idx) => {
     const el = document.createElement('div');
     el.className = 'pair-card';
     const beforeSlot = pair.before
       ? `<img src="${pair.before}" alt="指摘時"><span class="photo-badge badge-b">指摘時</span><span class="photo-check">${checkSVG}</span>`
-      : `<div class="photo-empty"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>指摘時</span></div><span class="photo-badge badge-b">指摘時</span>`;
+      : `<div class="photo-empty"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>指摘時</span></div><span class="photo-badge badge-b">指摘時</span>`;
     const afterSlot = pair.after
       ? `<img src="${pair.after}" alt="是正後"><span class="photo-badge badge-a">是正後</span><span class="photo-check">${checkSVG}</span>`
-      : `<div class="photo-empty"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>是正後</span></div><span class="photo-badge badge-a">是正後</span>`;
-
+      : `<div class="photo-empty"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>是正後</span></div><span class="photo-badge badge-a">是正後</span>`;
     el.innerHTML = `
       <div class="pair-header">
         <span class="pair-num">指摘 ${idx + 1}</span>
         <span class="pair-del" onclick="deletePair(${pair.id})">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
         </span>
       </div>
       <div class="photos-row">
-        <div class="photo-slot" onclick="openSheet(${pair.id},'before')">${beforeSlot}</div>
-        <div class="photo-slot" onclick="openSheet(${pair.id},'after')">${afterSlot}</div>
+        <div class="photo-slot" onclick="openPhotoSheet(${pair.id},'before')">${beforeSlot}</div>
+        <div class="photo-slot" onclick="openPhotoSheet(${pair.id},'after')">${afterSlot}</div>
       </div>
       <div class="caption-wrap">
         <input type="text" placeholder="指摘・是正内容を入力" value="${pair.caption.replace(/"/g,'&quot;')}"
-          oninput="pairs.find(p=>p.id===${pair.id}).caption=this.value">
+          oninput="currentReport().pairs.find(p=>p.id===${pair.id}).caption=this.value;saveCurrent()">
       </div>`;
     c.appendChild(el);
   });
 }
 
-function openSheet(id, side) {
-  activeSlot = { id, side };
+document.getElementById('addPairBtn').onclick = addPair;
+
+// 写真シート
+function openPhotoSheet(pairId, side) {
+  activeSlot = { pairId, side };
   const labels = { before: '指摘時の写真を追加', after: '是正後の写真を追加' };
   document.getElementById('sheetTitle').textContent = labels[side];
-  document.getElementById('overlay').classList.add('open');
+  document.getElementById('photoOverlay').classList.add('open');
 }
-
-document.getElementById('cancelBtn').onclick = () => document.getElementById('overlay').classList.remove('open');
-document.getElementById('overlay').onclick = e => { if (e.target === document.getElementById('overlay')) document.getElementById('overlay').classList.remove('open'); };
-document.getElementById('camBtn').onclick = () => { document.getElementById('overlay').classList.remove('open'); document.getElementById('fileCamera').click(); };
-document.getElementById('galBtn').onclick = () => { document.getElementById('overlay').classList.remove('open'); document.getElementById('fileGallery').click(); };
+document.getElementById('photoCancelBtn').onclick = () => document.getElementById('photoOverlay').classList.remove('open');
+document.getElementById('photoOverlay').onclick = e => { if (e.target === document.getElementById('photoOverlay')) document.getElementById('photoOverlay').classList.remove('open'); };
+document.getElementById('camBtn').onclick = () => { document.getElementById('photoOverlay').classList.remove('open'); document.getElementById('fileCamera').click(); };
+document.getElementById('galBtn').onclick = () => { document.getElementById('photoOverlay').classList.remove('open'); document.getElementById('fileGallery').click(); };
 
 function handleFile(file) {
   if (!file || !activeSlot) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const pair = pairs.find(p => p.id === activeSlot.id);
-    if (pair) { pair[activeSlot.side] = e.target.result; render(); }
+    const r = currentReport();
+    const pair = r.pairs.find(p => p.id === activeSlot.pairId);
+    if (pair) { pair[activeSlot.side] = e.target.result; renderPairs(); saveCurrent(); }
   };
   reader.readAsDataURL(file);
   document.getElementById('fileCamera').value = '';
   document.getElementById('fileGallery').value = '';
 }
-
 document.getElementById('fileCamera').onchange = e => handleFile(e.target.files[0]);
 document.getElementById('fileGallery').onchange = e => handleFile(e.target.files[0]);
-document.getElementById('addBtn').onclick = addPair;
 
+// PDF出力
 document.getElementById('pdfBtn').onclick = () => {
-  const title = document.getElementById('reportTitle').value || '検査写真報告書';
-  const layout = parseInt(document.getElementById('layoutSel').value);
-  if (pairs.every(p => !p.before && !p.after)) { toast('写真を追加してください'); return; }
+  const r = currentReport();
+  const title = r.title || '検査写真報告書';
+  const layout = parseInt(r.layout || '3');
+  if (r.pairs.every(p => !p.before && !p.after)) { toast('写真を追加してください'); return; }
   const today = new Date().toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' });
   const ppp = layout;
   const pages = [];
-  for (let i = 0; i < pairs.length; i += ppp) pages.push(pairs.slice(i, i + ppp));
-
+  for (let i = 0; i < r.pairs.length; i += ppp) pages.push(r.pairs.slice(i, i + ppp));
   const rowHeight = layout === 1 ? '55mm' : layout === 2 ? '110mm' : '73mm';
-
   const win = window.open('', '_blank');
   if (!win) { toast('ポップアップを許可してください'); return; }
-
   let body = '';
   pages.forEach((page, pi) => {
     const rows = page.map((pair, idx) => {
       const gn = pi * ppp + idx + 1;
       const bImg = pair.before ? `<img src="${pair.before}" style="width:100%;height:100%;object-fit:cover;display:block">` : '<div class="empty">（写真なし）</div>';
       const aImg = pair.after ? `<img src="${pair.after}" style="width:100%;height:100%;object-fit:cover;display:block">` : '<div class="empty">（写真なし）</div>';
-      return `<div class="row">
-        <div class="row-label">No.${gn}</div>
-        <div class="row-photos">
-          <div class="pbox"><div class="pb before">指摘時</div><div class="pimg">${bImg}</div></div>
-          <div class="pbox"><div class="pb after">是正後</div><div class="pimg">${aImg}</div></div>
-        </div>
-        <div class="row-cap">${pair.caption || '（未記入）'}</div>
-      </div>`;
+      return `<div class="row"><div class="row-label">No.${gn}　${pair.caption||''}</div><div class="row-photos"><div class="pbox"><div class="pb before">指摘時</div><div class="pimg">${bImg}</div></div><div class="pbox"><div class="pb after">是正後</div><div class="pimg">${aImg}</div></div></div></div>`;
     }).join('');
-    body += `<div class="page">
-      <div class="ph"><div class="ph-title">${title}</div><div class="ph-info">${today}　${pi+1} / ${pages.length} ページ</div></div>
-      ${rows}
-    </div>`;
+    body += `<div class="page"><div class="ph"><div class="ph-title">${title}</div><div class="ph-info">${today}　${pi+1} / ${pages.length} ページ</div></div>${rows}</div>`;
   });
-
-  win.document.write(`<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8">
-  <title>${title}</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#fff;font-size:11px}
-    .page{width:210mm;min-height:297mm;padding:10mm 12mm;page-break-after:always;display:flex;flex-direction:column;gap:4mm}
-    .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #333;padding-bottom:3mm;margin-bottom:1mm}
-    .ph-title{font-size:13px;font-weight:700}
-    .ph-info{font-size:9px;color:#777}
-    .row{border:0.5px solid #ccc;border-radius:3px;overflow:hidden;flex:1;display:flex;flex-direction:column}
-    .row-label{background:#f5f5f5;padding:2px 7px;font-size:9px;font-weight:700;border-bottom:0.5px solid #ddd;color:#555}
-    .row-photos{display:grid;grid-template-columns:1fr 1fr;flex:1}
-    .pbox{position:relative;border-right:0.5px solid #ddd}
-    .pbox:last-child{border-right:none}
-    .pb{position:absolute;top:3px;left:3px;font-size:7px;font-weight:700;padding:1px 4px;border-radius:2px;z-index:1}
-    .before{background:#dbeeff;color:#185FA5}
-    .after{background:#d4f0e4;color:#0F6E56}
-    .pimg{height:${rowHeight};overflow:hidden;background:#f0f0f0}
-    .empty{height:100%;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:9px}
-    .row-cap{padding:3px 7px;font-size:9px;color:#444;border-top:0.5px solid #eee;background:#fafafa;min-height:16px}
-    @media print{body{margin:0}.page{page-break-after:always}}
-  </style></head><body>${body}
-  <script>window.onload=()=>{window.print()}<\/script></body></html>`);
+  win.document.write(`<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><title>${title}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Hiragino Sans','Yu Gothic',sans-serif;background:#fff;font-size:11px}.page{width:210mm;min-height:297mm;padding:10mm 12mm;page-break-after:always;display:flex;flex-direction:column;gap:4mm}.ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #333;padding-bottom:3mm;margin-bottom:1mm}.ph-title{font-size:13px;font-weight:700}.ph-info{font-size:9px;color:#777}.row{border:0.5px solid #ccc;border-radius:3px;overflow:hidden;flex:1;display:flex;flex-direction:column}.row-label{background:#f5f5f5;padding:2px 7px;font-size:9px;font-weight:700;border-bottom:0.5px solid #ddd;color:#555}.row-photos{display:grid;grid-template-columns:1fr 1fr;flex:1}.pbox{position:relative;border-right:0.5px solid #ddd}.pbox:last-child{border-right:none}.pb{position:absolute;top:3px;left:3px;font-size:7px;font-weight:700;padding:1px 4px;border-radius:2px;z-index:1}.before{background:#dbeeff;color:#185FA5}.after{background:#d4f0e4;color:#0F6E56}.pimg{height:${rowHeight};overflow:hidden;background:#f0f0f0}.empty{height:100%;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:9px}@media print{body{margin:0}.page{page-break-after:always}}</style></head><body>${body}<script>window.onload=()=>{window.print()}<\/script></body></html>`);
   win.document.close();
 };
 
+// CSV出力
 document.getElementById('xlsBtn').onclick = () => {
-  if (pairs.length === 0) { toast('件を追加してください'); return; }
-  const title = document.getElementById('reportTitle').value || '検査写真報告書';
+  const r = currentReport();
+  const title = r.title || '検査写真報告書';
   const today = new Date().toLocaleDateString('ja-JP', { year:'numeric', month:'2-digit', day:'2-digit' });
   let csv = '\uFEFF';
   csv += `報告書名,${title}\n作成日,${today}\n\n`;
   csv += 'No.,指摘内容,指摘時写真,是正後写真\n';
-  pairs.forEach((p, i) => {
+  r.pairs.forEach((p, i) => {
     csv += `${i+1},"${(p.caption||'').replace(/"/g,'""')}",${p.before?'撮影済':'未撮影'},${p.after?'撮影済':'未撮影'}\n`;
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
@@ -306,12 +521,12 @@ document.getElementById('xlsBtn').onclick = () => {
   a.download = `${title}_${today.replace(/\//g,'')}.csv`;
   a.click();
   URL.revokeObjectURL(url);
-  toast('CSVファイルを保存しました');
+  toast('CSVを保存しました');
 };
 
-addPair();
-addPair();
-addPair();
+// ===== 起動 =====
+loadAll();
+renderList();
 </script>
 </body>
 </html>
